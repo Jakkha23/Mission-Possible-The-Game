@@ -3,17 +3,27 @@ function love.load( )
 	playerx = 300
 	playery = 300
 	speed = 80
-	playerHeight = 170
-	playerWidth = 180
+	playerHeight = 85
+	playerWidth = 90
 	WEAPON = 0
 	AMMUNITION = 0
 	FULL_AMMUNITION = 0
+	width = love.graphics.getWidth
 end
+--window size
+love.window.setMode(0,0)
+
+--music
+music = love.audio.newSource("Bjorn Lynne - Secret Agent.mp3", "stream")
+music:play()
 
 function love.draw()
-	love.graphics.print("This is your character.\nMove him around with the \narrow keys.", 610,12)
+	love.graphics.print("MISSION POSSIBLE - THE GAME", 200, 0)
+	love.graphics.print("This is your character.\nMove him around with W,A,S,D .", 610,12)
+	love.graphics.print("switch weapons with \nq/e or 1-9", 610,50)
+	love.graphics.print("shoot with 'space' \nreload by pressing 'r' ", 610, 90)
 	love.graphics.line(600, 0, 600, 600)
-	love.graphics.draw(playerIMG, playerx, playery, angle, 1, 1, playerWidth/2, playerHeight/2)
+	love.graphics.draw(playerIMG, playerx, playery, angle, 1, 1, playerWidth, playerHeight)
 	
 end
 
