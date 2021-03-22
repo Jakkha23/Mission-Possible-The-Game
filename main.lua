@@ -9,6 +9,8 @@ function love.load()
 	WEAPON = 0
 	AMMUNITION = 0
 	FULL_AMMUNITION = 0
+	Mousex = 0
+	Mousey = 0
 end
 
 love.window.setMode(0,0) -- window is set to fullscreen

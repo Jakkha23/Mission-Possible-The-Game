@@ -24,9 +24,7 @@ function love.keypressed(key, scancode, isrepeat)
         AMMUNITION = FULL_AMMUNITION
         print("weapon fully loaded")
 		print("" ..AMMUNITION)
-	elseif key == "space" then
-		print("firing! bullets= ".. AMMUNITION .. "")
-	end
+    end
     if WEAPON<0 then
         WEAPON = WEAPON +1
     end

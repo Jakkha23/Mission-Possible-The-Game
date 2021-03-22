@@ -16,6 +16,9 @@ function love.update(dt)
 				AMMUNITION = AMMUNITION -1
 	print("firing!")
 	Gunshot:play()
+	Mousex = love.mouse.getX()
+	Mousey = love.mouse.getY()
+	Bullet()
 		end
 end
 	if playerx <= 0 then
@@ -32,5 +35,7 @@ end
 	end
 	local mousex = love.mouse.getX( )
 	local mousey = love.mouse.getY( )
+	mousex = love.mouse.getX( )
+	mousey = love.mouse.getY( )
 	angle = math.atan2(mousey - playery, mousex - playerx)
 end
