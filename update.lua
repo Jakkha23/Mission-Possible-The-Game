@@ -12,9 +12,11 @@ function love.update(dt)
 		playery = playery + (speed * dt)
 	end
 	if love.mouse.isDown(1) then -- add firerate for different weapons
-	AMMUNITION = AMMUNITION -1
+		if WEAPON >0 then
+				AMMUNITION = AMMUNITION -1
 	print("firing!")
 	Gunshot:play()
+		end
 end
 	if playerx <= 0 then
 		playerx = 0
