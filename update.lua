@@ -19,14 +19,14 @@ end
 	if playerx <= 0 then
 		playerx = 0
 	end
-	if playerx >= (600 - playerWidth) then
-		playerx = (600 - playerWidth)
+	if playerx >= (love.graphics.getWidth() - 40) then
+		playerx = (love.graphics.getWidth() - 40)
 	end
 	if playery <= 0 then
 		playery = 0
 	end
-	if playery >= (600 - playerHeight) then
-		playery = (600 - playerHeight)
+	if playery >= (love.graphics.getHeight() - 40) then
+		playery = (love.graphics.getHeight() - 40)
 	end
 	local mousex = love.mouse.getX( )
 	local mousey = love.mouse.getY( )

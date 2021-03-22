@@ -1,4 +1,4 @@
-function love.load( )
+function love.load()
 	playerIMG = love.graphics.newImage("pictures/protagonist_noweapon_2x.png")
 	playerx = 300
 	playery = 300
@@ -8,13 +8,11 @@ function love.load( )
 	WEAPON = 0
 	AMMUNITION = 0
 	FULL_AMMUNITION = 0
-	width = love.graphics.getWidth
 end
 
 love.window.setMode(0,0) -- window is set to fullscreen
 
 --music and sound
-
 music = love.audio.newSource("music&soundeffects/Bjorn Lynne - Secret Agent.mp3", "stream")
 music:play()
 Weapon1shot = love.audio.newSource("music&soundeffects/weapon1_soundeffect.mp3", "static")
