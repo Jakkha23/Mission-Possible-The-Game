@@ -1,5 +1,6 @@
 function love.load()
-	playerIMG = love.graphics.newImage("pictures/protagonist_noweapon_2x.png")
+	PlayerIMG = love.graphics.newImage("pictures/protagonist_noweapon_2x.png")
+	EnemyImg = ("")
 	playerx = 300
 	playery = 300
 	speed = 100

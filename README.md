@@ -14,6 +14,8 @@ shoot by pressing the left mouse button
 
 reload with "R"
 
+quit game with "esc"
+Restart with "tab"
 
 
 
