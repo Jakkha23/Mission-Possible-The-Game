@@ -1,5 +1,5 @@
 function love.update(dt)
-	if love.keyboard.isDown("d") then
+        if love.keyboard.isDown("d") then
 		Player.X = Player.X + (Player.Speed * dt)
 	end
 	if love.keyboard.isDown("a") then
@@ -42,10 +42,18 @@ function love.update(dt)
         Timer = 0
     end
     Timer = Timer + dt
+    
     if BulletFired == true then
+
         Bullet.X = Bullet.X + (math.cos(AngleB) * Bullet.Speed * dt) --math.cos and math.sin works in radians not degrees
         Bullet.Y = Bullet.Y + (math.sin(AngleB) * Bullet.Speed * dt)
     end
+
+    --[[for i=#Bullets, 1, -1 do
+        local Bullet = Bullets[i]
+        Bullet.X = Bullet.X + (math.cos(AngleB) * Bullet.Speed * dt) --math.cos and math.sin works in radians not degrees
+        Bullet.Y = Bullet.Y + (math.sin(AngleB) * Bullet.Speed * dt)
+    end]]
     
 
     for i=#Enemies, 1, -1 do
@@ -54,6 +62,7 @@ function love.update(dt)
         if BBEE(Bullet.X, Bullet.Y, Bullet.Width, Bullet.Height, Enemy.X, Enemy.Y, 20, 20) then
             print("hit")
             table.remove(Enemies, i)
+            table.remove(Bullets, i)
             Score = Score + 1
             print(Score)
             if Score > HighScore then
@@ -71,9 +80,12 @@ function love.update(dt)
 
     end
     
+    
+    Difficulty = 0.01 +((love.timer.getTime() - StartTime) / 1000) 
+    print(Difficulty)
 
     --Spawns zombies
-    if math.random() < 0.01 then
+    if math.random() < Difficulty then
         local Enemy = {}
         Enemy.X = math.random(0, love.graphics.getWidth())
         Enemy.Y = math.random(0, love.graphics.getHeight())
@@ -82,5 +94,12 @@ function love.update(dt)
         Enemy.Speed = 30
         Enemy.Angle = 0
         table.insert(Enemies, Enemy)
+    end
+
+    if Score > 1 then
+        UnlockedWeapon = 2
+    end
+    if Score > 3 then
+        UnlockedWeapon = 3
     end
 end

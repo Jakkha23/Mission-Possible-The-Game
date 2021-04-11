@@ -6,7 +6,7 @@ function love.keypressed(key, scancode, isrepeat) --keybinds
         print(Weapon)
     end
     if key == "e" then
-        if Weapon <5 then
+        if Weapon < UnlockedWeapon then
             Weapon = Weapon + 1
             print("You have equiped weapon number:" ..Weapon)
         end
@@ -22,5 +22,8 @@ function love.keypressed(key, scancode, isrepeat) --keybinds
     if key == "r" then
         GunReload:play()
         Ammunition = 10
+    end
+    if key == "tab" then
+        love.load()
     end
 end

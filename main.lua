@@ -22,7 +22,9 @@ function love.load() --startup
     Player.Speed = 100
     Player.Health = 100
 --Weapon
-    Bullet= {}
+    Bullets = {}
+
+    Bullet = {}
     Bullet.X = 0
     Bullet.Y = 0
     Bullet.Height = 5
@@ -35,6 +37,7 @@ function love.load() --startup
     CoolDown = 0.55
 
 
+
 --Enemies
     Enemies = {}
 --Mouse
@@ -44,11 +47,15 @@ function love.load() --startup
     math.randomseed(os.time())
     Score = 0
     HighScore = 0
-    end
+    Difficulty = 0.01
+    StartTime  = love.timer.getTime() + 0
+    UnlockedWeapon = 1
+end
 
 
     
 function GunCheck() --checks equiped weapon and assigns, image, sound and ammunition
+
     if Weapon == 0 then
         PlayerIMG = love.graphics.newImage("pictures/heronoweapon.png")
     elseif Weapon == 1 then
@@ -59,11 +66,11 @@ function GunCheck() --checks equiped weapon and assigns, image, sound and ammuni
         BulletIMG = love.graphics.newImage("pictures/bullet.png")
         CoolDown = 0.55
         Bullet.Speed = 1000
-        Bullet.Height = 5
-        Bullet.Width = 5
+        Bullet.Height = 10
+        Bullet.Width = 10
         GunEquip:play()
         StartAmmunition = 10
-    elseif Weapon == 2 then
+    elseif Weapon == 4 then
         PlayerIMG = love.graphics.newImage("pictures/heroweapon2.png")
         Gunshot = love.audio.newSource("music&soundeffects/weapon2_soundeffect.mp3", "static")
         GunEquip = love.audio.newSource("music&soundeffects/weapon2equip.mp3", "static")
@@ -72,7 +79,7 @@ function GunCheck() --checks equiped weapon and assigns, image, sound and ammuni
         CoolDown = 0.1
         GunEquip:play()
         StartAmmunition = 30
-    elseif Weapon == 3 then
+    elseif Weapon == 5 then
         PlayerIMG = love.graphics.newImage("pictures/heroweapon3.png")
         Gunshot = love.audio.newSource("music&soundeffects/weapon3_soundeffect.mp3", "static")
         GunEquip = love.audio.newSource("music&soundeffects/weapon3equip.mp3", "static")
@@ -81,19 +88,19 @@ function GunCheck() --checks equiped weapon and assigns, image, sound and ammuni
         CoolDown = 0.2
         GunEquip:play()
         StartAmmunition = 30
-    elseif Weapon == 4 then
+    elseif Weapon == 2 then
         PlayerIMG = love.graphics.newImage("pictures/heroweapon4.png")
         Gunshot = love.audio.newSource("music&soundeffects/weapon4_soundeffect.mp3", "static")
         GunEquip = love.audio.newSource("music&soundeffects/weapon4equip.mp3", "static")
         GunReload = love.audio.newSource("music&soundeffects/weapon4reload.mp3", "static")
-        BulletIMG = love.graphics.newImage("pictures/bullet.png")
+        BulletIMG = love.graphics.newImage("pictures/bullet4v2.png")
         CoolDown = 1.1
         Bullet.Speed = 1700
-        Bullet.Width = 5
-        Bullet.Height = 5
+        Bullet.Width = 20
+        Bullet.Height = 20
         GunEquip:play()
         StartAmmunition = 8
-    elseif Weapon == 5 then
+    elseif Weapon == 3 then
         PlayerIMG = love.graphics.newImage("pictures/heroweapon5.png")
         Gunshot = love.audio.newSource("music&soundeffects/weapon5_soundeffect.mp3", "static")
         GunEquip = love.audio.newSource("music&soundeffects/weapon5equip.mp3", "static")
@@ -116,12 +123,12 @@ function love.mousepressed(x, y, button, istouch, presses)
                 SingleShot()
                 CanShoot = false
             end
-        elseif Weapon == 4 then
+        elseif Weapon == 2 then
             if CanShoot == true then
                 SingleShot()
                 CanShoot = false
             end
-        elseif Weapon == 5 then
+        elseif Weapon == 3 then
             if CanShoot == true then
                 SingleShot()
                 CanShoot = false
@@ -129,7 +136,6 @@ function love.mousepressed(x, y, button, istouch, presses)
         end
     end
 end
-    
 
 
 function SingleShot()
@@ -159,25 +165,49 @@ function love.draw()
     love.graphics.draw(CursorIMG, love.mouse.getX()-7, love.mouse.getY()-7)
 
     --bullet angle
+   --[[ for i=1, #Bullets, 1 do
+        local Bullet = Bullets[i]
+        love.graphics.draw(BulletIMG, Bullet.X, Bullet.Y, AngleB, 1, 1, Bullet.Width, Bullet.Height)
+    end]]
     if BulletFired == true then
         love.graphics.draw(BulletIMG, Bullet.X, Bullet.Y, AngleB, 1, 1, Bullet.Width, Bullet.Height)
-    end
+    end 
 
     for i=1, #Enemies, 1 do
         --Bullet Collision
         local Enemy = Enemies[i]
     love.graphics.draw(EnemyIMG, Enemy.X, Enemy.Y, Enemy.Angle, 1, 1, Enemy.Width, Enemy.Height)
     end
-    
+    love.graphics.setNewFont(20)
     love.graphics.print("Score: " .. Score, 20, 20)
-    love.graphics.print("Highscore: " .. HighScore, 20, 40)
-    love.graphics.print("Health: " .. Player.Health, love.graphics.getWidth() - 100, 20)
-    love.graphics.print("Weapon: " .. Weapon, love.graphics.getWidth() - 100, 40)
-    love.graphics.print("Ammunition" .. Ammunition, love.graphics.getWidth() - 100, 60)
+    love.graphics.print("Health: " .. Player.Health, love.graphics.getWidth() - 120, 20)
+    love.graphics.print("Weapon: " .. Weapon, love.graphics.getWidth() - 120, 40)
+    love.graphics.print("Ammunition" .. Ammunition, love.graphics.getWidth() - 120, 60)
+    love.graphics.print("Unlocked Weapons:  1,", 20, 40)
+    love.graphics.print("Unlock Weapons by earning score", 20, 60)
 
     --blood stuff
     --if Bullet.X == Enemy.X +- 10 then
 
         
     --end
+    if Player.Health < 0 then
+        love.graphics.setColor(0,0,0)
+        love.graphics.rectangle("fill", 0,0, love.graphics.getWidth(), love.graphics.getHeight())
+        love.graphics.setColor(1,1,1)
+        love.graphics.print("GAME OVER", 100, 100)
+        love.graphics.print("Score: " .. Score, 100, 120)
+        
+        love.graphics.print("Press 'tab' to restart, Press 'Esc' to quit.", 100, 140)
+    end
+
+    if UnlockedWeapon >= 2 then
+        love.graphics.setNewFont(20)
+        love.graphics.print("2,", 260, 40)
+        love.graphics.print("switch weapons with Q/E", 20, 80)
+    end
+    if UnlockedWeapon >= 3 then
+        love.graphics.setNewFont(20)
+        love.graphics.print("3,", 290, 40)
+    end
 end
