@@ -70,7 +70,13 @@ function love.update(dt)
             end
         end
         --Enemy Collision
-        if EEPP(Enemy.X, Enemy.Y, Enemy.Width, Enemy.Height, Player.X, Player.Y, Player.Width-70, Player.Height-85) then
+        Player.CollideWidth = 20
+        Player.CollideHeight = 20
+        Enemy.CollideWidth = 20
+        Enemy.CollideHeight = 20
+
+
+        if EEPP(Enemy.X, Enemy.Y, Enemy.CollideWidth, Enemy.CollideHeight, Player.X, Player.Y, Player.CollideWidth, Player.CollideHeight) then
             Player.Health = Player.Health - (10*dt)
         end
         --Enemy angle and chase
@@ -96,10 +102,10 @@ function love.update(dt)
         table.insert(Enemies, Enemy)
     end
 
-    if Score > 1 then
+    if Score > 30 then
         UnlockedWeapon = 2
     end
-    if Score > 3 then
+    if Score > 60 then
         UnlockedWeapon = 3
     end
 end

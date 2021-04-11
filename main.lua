@@ -8,6 +8,8 @@ function love.load() --startup
     EnemyIMG = love.graphics.newImage("pictures/enemy.png")
     CursorIMG = love.graphics.newImage("pictures/crosshair.png")
     BulletIMG = love.graphics.newImage("pictures/bullet.png")
+    Music = love.audio.newSource("music&soundeffects/Bjorn Lynne - Secret Agent.mp3", "static")
+    Music:play()
     
     love.mouse.setVisible(false)
     love.mouse.setGrabbed(true)
@@ -180,9 +182,9 @@ function love.draw()
     end
     love.graphics.setNewFont(20)
     love.graphics.print("Score: " .. Score, 20, 20)
-    love.graphics.print("Health: " .. Player.Health, love.graphics.getWidth() - 120, 20)
-    love.graphics.print("Weapon: " .. Weapon, love.graphics.getWidth() - 120, 40)
-    love.graphics.print("Ammunition" .. Ammunition, love.graphics.getWidth() - 120, 60)
+    love.graphics.print("Health: " .. Player.Health, love.graphics.getWidth() - 170, 20)
+    love.graphics.print("Weapon: " .. Weapon, love.graphics.getWidth() - 170, 40)
+    love.graphics.print("Ammunition: " .. Ammunition, love.graphics.getWidth() - 170, 60)
     love.graphics.print("Unlocked Weapons:  1,", 20, 40)
     love.graphics.print("Unlock Weapons by earning score", 20, 60)
 
