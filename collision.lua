@@ -14,7 +14,7 @@ function EEPP(x1, y1 , w1, h1, x2, y2, w2, h2)
     y1 + h1 > y2
 end
 
-function EEPP2(Ex, Ey,Px, Py)
+--[[function EEPP2(Ex, Ey,Px, Py)
     if Ex == Px + 10 then
     Damaging = true
     elseif Ey == Py + 10 then
@@ -24,5 +24,5 @@ function EEPP2(Ex, Ey,Px, Py)
     elseif Ey == Py -10 then
     Damaging = true
     end
-    return Damaging
 end
+]] -- did not end up using

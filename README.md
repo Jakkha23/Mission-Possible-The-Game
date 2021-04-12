@@ -5,6 +5,8 @@
 
 "Mission possible" is a top-down shooter
 
+The difficulty get's progressively harder with time
+
 Move with W,A,S,D
 
 switch weapons with Q/E

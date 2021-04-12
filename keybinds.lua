@@ -26,4 +26,22 @@ function love.keypressed(key, scancode, isrepeat) --keybinds
     if key == "tab" then
         love.load()
     end
+    if key == "space" then
+        if Weapon == 1 then
+            if CanShoot == true then
+                SingleShot()
+                CanShoot = false
+            end
+        elseif Weapon == 2 then
+            if CanShoot == true then
+                SingleShot()
+                CanShoot = false
+            end
+        elseif Weapon == 3 then
+            if CanShoot == true then
+                SingleShot()
+                CanShoot = false
+            end
+        end
+    end
 end
