@@ -219,12 +219,12 @@ function love.draw()
         love.graphics.print("Press 'tab' to restart, Press 'Esc' to quit.", 100, 140)
     end
 
-    if UnlockedWeapon >= 2 then
+    if UnlockedWeapon >= 2 and Player.Health > 0 then
         love.graphics.setNewFont(20)
         love.graphics.print("2,", 260, 40)
         love.graphics.print("switch weapons with Q/E", 20, 80)
     end
-    if UnlockedWeapon >= 3 then
+    if UnlockedWeapon >= 3 and Player.Health > 0 then
         love.graphics.setNewFont(20)
         love.graphics.print("3,", 290, 40)
     end
