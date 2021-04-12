@@ -25,7 +25,7 @@ function love.keypressed(key, scancode, isrepeat) --keybinds
         NoAmmo = false
     end
     if key == "tab" then
-        love.load()
+        love.event.quit("restart")
     end
     if key == "space" then
         if Weapon == 1 then
