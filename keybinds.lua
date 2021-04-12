@@ -13,7 +13,7 @@ function love.keypressed(key, scancode, isrepeat) --keybinds
         GunCheck()
     end
     if key == "q" then
-        if Weapon > 0 then
+        if Weapon > 1 then
             Weapon = Weapon - 1
             print("You have equiped weapon number:" .. Weapon)
         end
@@ -21,7 +21,8 @@ function love.keypressed(key, scancode, isrepeat) --keybinds
     end
     if key == "r" then
         GunReload:play()
-        Ammunition = 10
+        Ammunition = WeaponAmmunition
+        NoAmmo = false
     end
     if key == "tab" then
         love.load()

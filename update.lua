@@ -44,7 +44,6 @@ function love.update(dt)
     Timer = Timer + dt
     
     if BulletFired == true then
-
         Bullet.X = Bullet.X + (math.cos(AngleB) * Bullet.Speed * dt) --math.cos and math.sin works in radians not degrees
         Bullet.Y = Bullet.Y + (math.sin(AngleB) * Bullet.Speed * dt)
     end

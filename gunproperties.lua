@@ -10,8 +10,8 @@ function GunCheck() --checks equiped weapon and assigns, image, sound and ammuni
         BulletIMG = love.graphics.newImage("pictures/bullet.png")
         CoolDown = 0.55
         Bullet.Speed = 1000
-        Bullet.Height = 10
-        Bullet.Width = 10
+        Bullet.Height = 15
+        Bullet.Width = 15
         GunEquip:play()
         StartAmmunition = 10
     elseif Weapon == 4 then
@@ -31,7 +31,7 @@ function GunCheck() --checks equiped weapon and assigns, image, sound and ammuni
         BulletIMG = love.graphics.newImage("pictures/bullet.png")
         CoolDown = 0.2
         GunEquip:play()
-        StartAmmunition = 30
+        WeaponAmmunition = 30
     elseif Weapon == 2 then
         PlayerIMG = love.graphics.newImage("pictures/heroweapon4.png")
         Gunshot = love.audio.newSource("music&soundeffects/weapon4_soundeffect.mp3", "static")
@@ -43,7 +43,7 @@ function GunCheck() --checks equiped weapon and assigns, image, sound and ammuni
         Bullet.Width = 20
         Bullet.Height = 20
         GunEquip:play()
-        StartAmmunition = 8
+        WeaponAmmunition = 8
     elseif Weapon == 3 then
         PlayerIMG = love.graphics.newImage("pictures/heroweapon5.png")
         Gunshot = love.audio.newSource("music&soundeffects/weapon5_soundeffect.mp3", "static")
@@ -55,6 +55,6 @@ function GunCheck() --checks equiped weapon and assigns, image, sound and ammuni
         Bullet.Speed = 500
         CoolDown = 1.2
         GunEquip:play()
-        StartAmmunition = 5
+        WeaponAmmunition = 5
     end
 end

@@ -4,10 +4,20 @@ require("collision")
 
 function love.load() --startup
     Background = love.graphics.newImage("pictures/background.png")
-    PlayerIMG = love.graphics.newImage("pictures/heronoweapon.png")
+    Click = love.audio.newSource("music&soundeffects/click.wav", "static")
+    PlayerIMG = love.graphics.newImage("pictures/heroweapon1.png")
+    Gunshot = love.audio.newSource("music&soundeffects/weapon1_soundeffect.mp3", "static")
+    GunEquip = love.audio.newSource("music&soundeffects/weapon1equip.mp3", "static")
+    GunReload = love.audio.newSource("music&soundeffects/weapon1reload.mp3", "static")
+    BulletIMG = love.graphics.newImage("pictures/bullet.png")
+    CoolDown = 0.55
+    GunEquip:play()
+    StartAmmunition = 10
+
     EnemyIMG = love.graphics.newImage("pictures/enemy.png")
     CursorIMG = love.graphics.newImage("pictures/crosshair.png")
     BulletIMG = love.graphics.newImage("pictures/bullet.png")
+    
     Music = love.audio.newSource("music&soundeffects/Bjorn Lynne - Secret Agent.mp3", "static")
     Music:play()
     
@@ -33,7 +43,8 @@ function love.load() --startup
     Bullet.Width = 5
     Bullet.Speed = 2000
 
-    Weapon = 0
+    WeaponAmmunition = 10
+    Weapon = 1
     Ammunition = 10
     Timer = 0.55
     CoolDown = 0.55
@@ -54,8 +65,66 @@ function love.load() --startup
     UnlockedWeapon = 1
 end
 
-require("gunproperties")
-    
+function GunCheck() --checks equiped weapon and assigns, image, sound and ammunition
+
+    if Weapon == 0 then
+        PlayerIMG = love.graphics.newImage("pictures/heronoweapon.png")
+    elseif Weapon == 1 then
+        PlayerIMG = love.graphics.newImage("pictures/heroweapon1.png")
+        Gunshot = love.audio.newSource("music&soundeffects/weapon1_soundeffect.mp3", "static")
+        GunEquip = love.audio.newSource("music&soundeffects/weapon1equip.mp3", "static")
+        GunReload = love.audio.newSource("music&soundeffects/weapon1reload.mp3", "static")
+        BulletIMG = love.graphics.newImage("pictures/bullet.png")
+        CoolDown = 0.55
+        Bullet.Speed = 1000
+        Bullet.Height = 10
+        Bullet.Width = 10
+        GunEquip:play()
+        StartAmmunition = 10
+    elseif Weapon == 4 then
+        PlayerIMG = love.graphics.newImage("pictures/heroweapon2.png")
+        Gunshot = love.audio.newSource("music&soundeffects/weapon2_soundeffect.mp3", "static")
+        GunEquip = love.audio.newSource("music&soundeffects/weapon2equip.mp3", "static")
+        GunReload = love.audio.newSource("music&soundeffects/weapon2reload.mp3", "static")
+        BulletIMG = love.graphics.newImage("pictures/bullet.png")
+        CoolDown = 0.1
+        GunEquip:play()
+        StartAmmunition = 30
+    elseif Weapon == 5 then
+        PlayerIMG = love.graphics.newImage("pictures/heroweapon3.png")
+        Gunshot = love.audio.newSource("music&soundeffects/weapon3_soundeffect.mp3", "static")
+        GunEquip = love.audio.newSource("music&soundeffects/weapon3equip.mp3", "static")
+        GunReload = love.audio.newSource("music&soundeffects/weapon3reload.mp3", "static")
+        BulletIMG = love.graphics.newImage("pictures/bullet.png")
+        CoolDown = 0.2
+        GunEquip:play()
+        WeaponAmmunition = 30
+    elseif Weapon == 2 then
+        PlayerIMG = love.graphics.newImage("pictures/heroweapon4.png")
+        Gunshot = love.audio.newSource("music&soundeffects/weapon4_soundeffect.mp3", "static")
+        GunEquip = love.audio.newSource("music&soundeffects/weapon4equip.mp3", "static")
+        GunReload = love.audio.newSource("music&soundeffects/weapon4reload.mp3", "static")
+        BulletIMG = love.graphics.newImage("pictures/bullet4v2.png")
+        CoolDown = 1.1
+        Bullet.Speed = 1700
+        Bullet.Width = 20
+        Bullet.Height = 20
+        GunEquip:play()
+        WeaponAmmunition = 8
+    elseif Weapon == 3 then
+        PlayerIMG = love.graphics.newImage("pictures/heroweapon5.png")
+        Gunshot = love.audio.newSource("music&soundeffects/weapon5_soundeffect.mp3", "static")
+        GunEquip = love.audio.newSource("music&soundeffects/weapon5equip.mp3", "static")
+        GunReload = love.audio.newSource("music&soundeffects/weapon5reload.mp3", "static")
+        BulletIMG = love.graphics.newImage("pictures/bullet5.png")
+        Bullet.Width = 25
+        Bullet.Height = 25
+        Bullet.Speed = 500
+        CoolDown = 1.2
+        GunEquip:play()
+        WeaponAmmunition = 5
+    end
+end
 
 
 
@@ -85,14 +154,20 @@ function SingleShot()
     print ("Firing!")
     Ammunition = Ammunition - 1
     print (Ammunition)
-    if Weapon > 0 then
-        Gunshot:play()
-        CanShoot = false
-    end
     Bullet.X = Player.X
     Bullet.Y = Player.Y
     AngleB = (math.atan2(MouseY - Player.Y, MouseX - Player.X)) --Bullet is now angled correctly (radians)
-    BulletFired = true
+    if Weapon > 0 and Ammunition > 0 then
+        Gunshot:play()
+        BulletFired = true
+        CanShoot = false
+    end
+    if Ammunition < 1 then
+        CanShoot = false
+        BulletFired = false
+        Click:play()
+        NoAmmo = true
+    end
 end
 
 
@@ -152,5 +227,8 @@ function love.draw()
     if UnlockedWeapon >= 3 then
         love.graphics.setNewFont(20)
         love.graphics.print("3,", 290, 40)
+    end
+    if NoAmmo == true then
+        love.graphics.print("NO AMMO!", 400, 40)
     end
 end
